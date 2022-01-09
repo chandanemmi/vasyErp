@@ -11,9 +11,10 @@ import Tshirt from "../Assets/T-shirt.jfif";
 import Cap from "../Assets/Cap.jfif";
 import Jackets from "../Assets/Jackets.jfif";
 import Popup from "./Popup";
+import TopBar from "./TopBar";
 
 export default function Dashboard() {
-  const [CheckoutPopup, setCheckoutPopup] = React.useState(false);
+  const [checkoutPopup, setcheckoutPopup] = React.useState(false);
   const [products, setProdcuts] = React.useState([]);
   const [countCap, setCountCap] = React.useState(0);
   const [countJacket, setJacket] = React.useState(0);
@@ -21,7 +22,7 @@ export default function Dashboard() {
   const [countTshirt, setTshirt] = React.useState(0);
 
   const onHandleClick = () => {
-    setCheckoutPopup(true);
+    setcheckoutPopup(true);
   };
   const onAddingtoCart = (item) => {
     let product;
@@ -67,16 +68,8 @@ export default function Dashboard() {
   };
   return (
     <>
+      <TopBar />
       <Container maxWidth="">
-        <label
-          style={{
-            fontFamily: "cursive",
-            font: "bold",
-            fontSize: "2.5em",
-            margin: "2em",
-          }}>
-          Welcome to VasyStore
-        </label>
         <Grid container spacing={1}>
           <Grid item sm={3}>
             <Card sx={{ maxWidth: 345 }}>
@@ -183,20 +176,17 @@ export default function Dashboard() {
           </Grid>
         </Grid>
         <Button
-          onClick={() => onHandleClick()}
+          onClick={onHandleClick}
           variant="outlined"
           style={{ margin: "2em" }}>
           Checkout
         </Button>
       </Container>
       <Popup
-        title="Checkout"
-        openPopup={CheckoutPopup}
-        setOpenPopup={setCheckoutPopup}>
-        <div>
-          <label>Bill System </label>
-        </div>
-      </Popup>
+        title="Check-out"
+        openPopup={checkoutPopup}
+        setOpenPopup={setcheckoutPopup}
+        {...products}></Popup>
     </>
   );
 }

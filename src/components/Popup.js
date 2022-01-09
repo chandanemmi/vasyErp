@@ -1,68 +1,50 @@
-import {
-  DialogContent,
-  DialogTitle,
-  Dialog,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
-import React from "react";
-import CloseIcon from "@material-ui/icons/Close";
-import shadows from "@material-ui/core/styles/shadows";
-import { Button } from "@mui/material";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backdropFilter: "blur(10px)",
-    backgroundColor: "rgba(0,0,0,0)",
-  },
-  paper: {
-    // border: "1.5px solid #126AFC",
-    boxShadow: "0px 3px 12px #00000029",
-    //width: "38em",
-    overflow: "hidden !important",
-    borderRadius: "0px",
-  },
-  dialogTitle: {
-    fontFamily: "Saira_SemiBold",
-    textAlign: "left",
-    padding: "1.0625em 1.8125em",
-    background: "#016AFF",
-    color: "#FFFFFF",
-    height: "3.4em",
-    width: "100%",
-    overflow: "hidden !important",
-    display: "flex",
-    alignItems: "center",
-    boxShadow: "0px 3px 12px #00000029",
-  },
-}));
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function Popup(props) {
-  const { title, children, openPopup, setOpenPopup } = props;
-  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const { title, openPopup, setOpenPopup, products } = props;
+  console.log(products);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setOpenPopup(false);
+  };
+
   return (
-    <Dialog
-      open={openPopup}
-      classes={{ root: classes.root, paper: classes.paper }}
-      // style={{ border: "1px solid black" }}
-    >
-      <div style={{ display: "flex" }}>
-        <Typography
-          variant="h6"
-          component="div"
-          style={{ flexGrow: 1 }}></Typography>
-        <Button
-          color=""
-          text="X"
-          onClick={() => {
-            setOpenPopup(false);
-          }}>
-          <CloseIcon />
-        </Button>
-      </div>
-      <DialogTitle></DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      {/* <br></br> */}
-    </Dialog>
+    <div>
+      <Dialog
+        open={openPopup}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description">
+        <DialogTitle>{title}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+          <div>{products}</div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>Agree</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
