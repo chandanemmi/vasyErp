@@ -22,46 +22,79 @@ export default function Dashboard() {
   const [countTshirt, setTshirt] = React.useState(0);
 
   const onHandleClick = () => {
+    let product;
+    if (countCap > 0) {
+      product = {
+        price: 20,
+        productName: "Cap",
+        Quantity: countCap,
+      };
+      setProdcuts((items) => [...items, product]);
+    }
+    if (countJacket > 0) {
+      product = {
+        price: 99,
+        productName: "Jackets",
+        Quantity: countJacket,
+      };
+      setProdcuts((items) => [...items, product]);
+    }
+    if (countTshirt > 0) {
+      product = {
+        price: 80,
+        productName: "Tshirt",
+        Quantity: countTshirt,
+      };
+      setProdcuts((items) => [...items, product]);
+    }
+    if (countWoolen > 0) {
+      product = {
+        price: 50,
+        productName: "woolenCap",
+        Quantity: countWoolen,
+      };
+      setProdcuts((items) => [...items, product]);
+    }
     setcheckoutPopup(true);
   };
   const onAddingtoCart = (item) => {
     let product;
     switch (item) {
       case "Jackets":
-        product = {
-          price: 99,
-          productName: "Jackets",
-          Quantity: countJacket,
-        };
+        // product = {
+        //   price: 99,
+        //   productName: "Jackets",
+        //   Quantity: countJacket,
+        // };
         setJacket((prevCount) => prevCount + 1);
-        setProdcuts((item) => [...item, product]);
+        // setProdcuts((item) => [...item, product]);
         break;
       case "Cap":
-        product = {
-          price: 20,
-          productName: "Cap",
-          Quantity: countCap,
-        };
+        // product = {
+        //   price: 20,
+        //   productName: "Cap",
+        //   Quantity: countCap,
+        // };
         setCountCap((prevCount) => prevCount + 1);
-        setProdcuts((item) => [...item, product]);
+        // setProdcuts((item) => [...item, product]);
         break;
       case "Tshirt":
-        product = {
-          price: 50,
-          productName: "Tshirt",
-          Quantity: countTshirt,
-        };
+        // product = {
+        //   price: 50,
+        //   productName: "Tshirt",
+        //   Quantity: countTshirt,
+        // };
         setTshirt((prevCount) => prevCount + 1);
-        setProdcuts((item) => [...item, product]);
+        // setProdcuts((item) => [...item, product]);
         break;
       case "woolenCap":
-        product = {
-          price: 50,
-          productName: "woolenCap",
-          Quantity: countWoolen,
-        };
+        // product = {
+        //   price: 50,
+        //   productName: "woolenCap",
+        //   Quantity: countWoolen,
+        // };
         setWoolen((prevcount) => prevcount + 1);
-        setProdcuts((item) => [...item, product]);
+        // setProdcuts((item) => [...item, product]);
         break;
       default:
     }
@@ -186,7 +219,12 @@ export default function Dashboard() {
         title="Check-out"
         openPopup={checkoutPopup}
         setOpenPopup={setcheckoutPopup}
-        {...products}></Popup>
+        setProdcuts={setProdcuts}
+        setCountCap={setCountCap}
+        setJacket={setJacket}
+        setWoolen={setWoolen}
+        setTshirt={setTshirt}
+        product={products}></Popup>
     </>
   );
 }

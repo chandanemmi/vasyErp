@@ -13,14 +13,29 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Popup(props) {
   const [open, setOpen] = React.useState(false);
-  const { title, openPopup, setOpenPopup, products } = props;
-  console.log(products);
+  const {
+    title,
+    openPopup,
+    setOpenPopup,
+    setProdcuts,
+    setCountCap,
+    setJacket,
+    setWoolen,
+    setTshirt,
+    product,
+  } = props;
+  console.log(product);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setProdcuts([]);
+    setCountCap(0);
+    setJacket(0);
+    setWoolen(0);
+    setTshirt(0);
     setOpenPopup(false);
   };
 
@@ -35,14 +50,22 @@ export default function Popup(props) {
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+            Make payment through cash/card
           </DialogContentText>
-          <div>{products}</div>
+          <ol>
+            {product.map((item, index) => {
+              return (
+                <li>
+                  Product Name:{item.productName}&nbsp; Price:{item.price}&nbsp;
+                  Quantity:{item.Quantity}
+                </li>
+              );
+            })}
+          </ol>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>OK</Button>
         </DialogActions>
       </Dialog>
     </div>
